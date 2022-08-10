@@ -17,11 +17,6 @@ namespace NasaImageLibrary.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-             //.ConfigureServices((_, services) =>
-             //{
-             //    services.AddRefitClient<INasaImageAndVideoLibraryClient>()
-             //        .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://images-api.nasa.gov/s"));
-             //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

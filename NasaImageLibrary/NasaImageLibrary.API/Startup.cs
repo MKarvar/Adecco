@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using NasaImageLibrary.API.CustomExtensions;
 using NasaImageLibrary.Applicationservice;
 using NasaImageLibrary.Infrastructure;
+using NasaImageLibrary.API.Swagger;
 
 namespace NasaImageLibrary.API
 {
@@ -22,6 +22,7 @@ namespace NasaImageLibrary.API
         {
             services.AddCustomCors()
                 .AddCustomMvc()
+                .AddCustomSwagger()
                 .AddApplication()
                 .AddCustomRefitClients(Configuration)
                 .AddInfrastructureDependencies();
@@ -33,23 +34,19 @@ namespace NasaImageLibrary.API
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NasaImageLibrary.API v1"));
-            }
 
             app.UseHttpsRedirection();
-
+            app.UseCustomExceptionHandler();
+            app.UseSwagger();
+            app.UseCustomSwaggerAndUI();
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            app.UseStaticFiles();
+           
         }
     }
 }

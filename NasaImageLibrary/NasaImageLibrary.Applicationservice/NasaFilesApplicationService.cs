@@ -2,21 +2,23 @@
 using NasaImageLibrary.Applicationservice.Dtos;
 using NasaImageLibrary.Applicationservice.Queries;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NasaImageLibrary.Applicationservice
 {
-    public class NasaFilesApplicationService
+    public class NasaFilesApplicationService : INasaFilesApplicationService
     {
-        private readonly INasaFilesApplicationService _nasaService;
-        public NasaFilesApplicationService(INasaFilesApplicationService nasaService)
+        private readonly INasaExternalService _nasaService;
+        public NasaFilesApplicationService(INasaExternalService nasaService)
         {
             _nasaService = nasaService ?? throw new ArgumentNullException(nameof(nasaService));
         }
-        public async Task<FileDto> Search(SearchFilesQuery query, CancellationToken cancellationToken)
+        public async Task<List<Item>> Search(SearchFilesQuery query, CancellationToken cancellationToken)
         {
-            return await _nasaService.Search(query, cancellationToken);
+            var fileDto =  await _nasaService.Search(query, cancellationToken);
+            return  fileDto?.collection?.items;
         }
         public async Task<AssetDto> GetAsset(int nasaId, CancellationToken cancellationToken)
         {
