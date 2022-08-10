@@ -1,18 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using NasaImageLibrary.API.CustomExtensions;
 using NasaImageLibrary.Applicationservice;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using NasaImageLibrary.Infrastructure;
 
 namespace NasaImageLibrary.API
 {
@@ -29,7 +22,8 @@ namespace NasaImageLibrary.API
         {
             services.AddCustomCors()
                 .AddCustomMvc()
-                .AddApplication();
+                .AddApplication()
+                .AddCustomRefitClients(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

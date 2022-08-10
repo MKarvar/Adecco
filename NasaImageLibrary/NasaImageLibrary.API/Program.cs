@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using NasaImageLibrary.Infrastructure;
+using Refit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace NasaImageLibrary.API
 {
@@ -18,6 +17,11 @@ namespace NasaImageLibrary.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+             //.ConfigureServices((_, services) =>
+             //{
+             //    services.AddRefitClient<INasaImageAndVideoLibraryClient>()
+             //        .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://images-api.nasa.gov/s"));
+             //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

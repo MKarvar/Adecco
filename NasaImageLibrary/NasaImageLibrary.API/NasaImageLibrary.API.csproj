@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NasaImageLibrary.Applicationservice\NasaImageLibrary.Applicationservice.csproj" />
+    <ProjectReference Include="..\NasaImageLibrary.Infrastructure\NasaImageLibrary.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

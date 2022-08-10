@@ -1,4 +1,5 @@
 ﻿using NasaImageLibrary.Applicationservice.Contracts;
+using NasaImageLibrary.Applicationservice.Dtos;
 using NasaImageLibrary.Applicationservice.Queries;
 using System;
 using System.Threading;
@@ -13,9 +14,9 @@ namespace NasaImageLibrary.Applicationservice
         {
             _nasaService = nasaService ?? throw new ArgumentNullException(nameof(nasaService));
         }
-        public Task Search(SearchFilesQuery query, CancellationToken cancellationToken)
+        public async Task<FileDto> Search(SearchFilesQuery query, CancellationToken cancellationToken)
         {
-            return null;
+            return await _nasaService.Search(query, cancellationToken);
         }
         Task GetAsset(int nasaId, CancellationToken cancellationToken)
         {
