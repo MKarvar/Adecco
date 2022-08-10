@@ -6,6 +6,7 @@ using NasaImageLibrary.API.CustomExtensions;
 using NasaImageLibrary.Applicationservice;
 using NasaImageLibrary.Infrastructure;
 using NasaImageLibrary.API.Swagger;
+using NasaImageLibrary.API.PagingResult;
 
 namespace NasaImageLibrary.API
 {
@@ -23,6 +24,7 @@ namespace NasaImageLibrary.API
             services.AddCustomCors()
                 .AddCustomMvc()
                 .AddCustomSwagger()
+                .AddUriService()
                 .AddApplication()
                 .AddCustomRefitClients(Configuration)
                 .AddInfrastructureDependencies();

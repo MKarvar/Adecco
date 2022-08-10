@@ -9,9 +9,7 @@ namespace NasaImageLibrary.Infrastructure
     {
         public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
         {
-            services.AddTransient(typeof(INasaImageAndVideoLibraryClient));
             services.AddTransient(typeof(INasaExternalService), typeof(NasaExternalService));
-          
             return services;
         }
     }

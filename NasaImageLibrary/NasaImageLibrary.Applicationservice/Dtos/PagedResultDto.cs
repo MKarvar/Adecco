@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NasaImageLibrary.Applicationservice.Dtos
 {
-    public class PagedResult<TEntity> where TEntity : class
+    public class PagedResultDto<TEntity> where TEntity : class
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
@@ -16,21 +16,26 @@ namespace NasaImageLibrary.Applicationservice.Dtos
         public Uri PreviousPage { get; set; }
         public IEnumerable<TEntity> DataList { get; set; }
 
-        public PagedResult(int pageSize, int pageNumber)
+        public PagedResultDto(int pageSize, int pageNumber)
         {
             PageSize = pageSize;
             PageNumber = pageNumber;
         }
-        public PagedResult(int pageSize, int pageNumber, IEnumerable<TEntity> dataList)
+        public PagedResultDto(int pageSize, int pageNumber, IEnumerable<TEntity> dataList)
             : this(pageSize, pageNumber)
         {
             DataList = dataList;
         }
 
-        public PagedResult(int pageSize, int pageNumber, IEnumerable<TEntity> dataList, int totalRecords)
+        public PagedResultDto(int pageSize, int pageNumber, IEnumerable<TEntity> dataList, int totalRecords)
             : this(pageSize, pageNumber, dataList)
         {
             TotalRecords = totalRecords;
+        }
+        public PagedResultDto(int pageSize, int pageNumber, IEnumerable<TEntity> dataList, int totalRecords, int totalPages)
+           : this(pageSize, pageNumber, dataList, totalRecords)
+        {
+            TotalPages = totalPages;
         }
     }
 }

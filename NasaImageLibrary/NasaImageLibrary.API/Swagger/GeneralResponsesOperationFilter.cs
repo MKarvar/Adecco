@@ -35,11 +35,11 @@ namespace NasaImageLibrary.API.Swagger
             if (!hasAuthorize)
                 return;
 
-            if (includeUnauthorizedAndForbiddenResponses)
-            {
-                operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
-                operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
-            }
+            //if (includeUnauthorizedAndForbiddenResponses)
+            //{
+            //    operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
+            //    operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
+            //}
 
             var securityRequirement = new OpenApiSecurityRequirement{{
             new OpenApiSecurityScheme

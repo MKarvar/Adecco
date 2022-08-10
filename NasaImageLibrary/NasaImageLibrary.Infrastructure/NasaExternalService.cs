@@ -2,6 +2,7 @@
 using NasaImageLibrary.Applicationservice.Dtos;
 using NasaImageLibrary.Applicationservice.Queries;
 using NasaImageLibrary.Infrastructure.Exceptions;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,9 +48,10 @@ namespace NasaImageLibrary.Infrastructure
             return response.Content;
         }
 
-        public async Task<FileDto> Search(SearchFilesQuery query, CancellationToken cancellationToken)
+        public async Task<FileDto> Search(ExternalSearchFilesQuery query, CancellationToken cancellationToken)
         {
-            var response = await _nasaImageAndVideoLibraryClient.Search(query, cancellationToken);
+            string queryString = JsonConvert.SerializeObject(query);
+            var response = await _nasaImageAndVideoLibraryClient.Search(queryString, cancellationToken);
             if (!response.IsSuccessStatusCode)
                 throw new InfrastructureException($"Errot from Nasa api Search action. ErrorCode = {response.StatusCode}", response.Error); if (!response.IsSuccessStatusCode)
             if (response.Content == null)

@@ -75,12 +75,12 @@ namespace NasaImageLibrary.API
             }
 
           
-            catch (UnauthorizedAccessException exception)
-            {
-                _logger.LogError(exception, exception.Message);
-                SetUnAuthorizeResponse(exception);
-                await WriteToResponseAsync();
-            }
+            //catch (UnauthorizedAccessException exception)
+            //{
+            //    _logger.LogError(exception, exception.Message);
+            //    SetUnAuthorizeResponse(exception);
+            //    await WriteToResponseAsync();
+            //}
 
             catch (Exception exception)
             {
@@ -114,22 +114,22 @@ namespace NasaImageLibrary.API
                 await context.Response.WriteAsync(json);
             }
 
-            void SetUnAuthorizeResponse(Exception exception)
-            {
-                httpStatusCode = HttpStatusCode.Unauthorized;
-                apiStatusCode = ApiResultStatusCode.UnAuthorized;
+            //void SetUnAuthorizeResponse(Exception exception)
+            //{
+            //    httpStatusCode = HttpStatusCode.Unauthorized;
+            //    apiStatusCode = ApiResultStatusCode.UnAuthorized;
 
-                if (_env.IsDevelopment())
-                {
-                    var dic = new Dictionary<string, string>
-                    {
-                        ["Exception"] = exception.Message,
-                        ["StackTrace"] = exception.StackTrace
-                    };
+            //    if (_env.IsDevelopment())
+            //    {
+            //        var dic = new Dictionary<string, string>
+            //        {
+            //            ["Exception"] = exception.Message,
+            //            ["StackTrace"] = exception.StackTrace
+            //        };
                     
-                    message = JsonConvert.SerializeObject(dic, Formatting.Indented);
-                }
-            }
+            //        message = JsonConvert.SerializeObject(dic, Formatting.Indented);
+            //    }
+            //}
         }
     }
 }
