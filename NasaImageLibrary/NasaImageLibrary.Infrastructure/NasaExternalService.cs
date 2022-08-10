@@ -1,4 +1,5 @@
-﻿using NasaImageLibrary.Applicationservice.Contracts;
+﻿using Microsoft.AspNetCore.Http;
+using NasaImageLibrary.Applicationservice.Contracts;
 using NasaImageLibrary.Applicationservice.Dtos;
 using NasaImageLibrary.Applicationservice.Queries;
 using NasaImageLibrary.Infrastructure.Exceptions;
@@ -18,7 +19,7 @@ namespace NasaImageLibrary.Infrastructure
             _nasaImageAndVideoLibraryClient = nasaImageAndVideoLibraryClient;
         }
 
-        public async Task<AssetDto> GetAsset(int nasaId, CancellationToken cancellationToken)
+        public async Task<AssetDto> GetAsset(string nasaId, CancellationToken cancellationToken)
         {
             var response = await _nasaImageAndVideoLibraryClient.GetAsset(nasaId, cancellationToken);
             if (!response.IsSuccessStatusCode)
@@ -28,7 +29,7 @@ namespace NasaImageLibrary.Infrastructure
             return response.Content;
         }
 
-        public async Task<CaptionsDto> GetCaptions(int nasaId, CancellationToken cancellationToken)
+        public async Task<CaptionsDto> GetCaptions(string nasaId, CancellationToken cancellationToken)
         {
             var response = await _nasaImageAndVideoLibraryClient.GetCaptions(nasaId, cancellationToken);
             if (!response.IsSuccessStatusCode)
@@ -38,7 +39,7 @@ namespace NasaImageLibrary.Infrastructure
             return response.Content;
         }
 
-        public async Task<MetaDataDto> GetMetaData(int nasaId, CancellationToken cancellationToken)
+        public async Task<MetaDataDto> GetMetaData(string nasaId, CancellationToken cancellationToken)
         {
             var response = await _nasaImageAndVideoLibraryClient.GetMetaData(nasaId, cancellationToken);
             if (!response.IsSuccessStatusCode)
@@ -48,12 +49,11 @@ namespace NasaImageLibrary.Infrastructure
             return response.Content;
         }
 
-        public async Task<FileDto> Search(ExternalSearchFilesQuery query, CancellationToken cancellationToken)
+        public async Task<FileDto> Search(string queryString, CancellationToken cancellationToken)
         {
-            string queryString = JsonConvert.SerializeObject(query);
             var response = await _nasaImageAndVideoLibraryClient.Search(queryString, cancellationToken);
             if (!response.IsSuccessStatusCode)
-                throw new InfrastructureException($"Errot from Nasa api Search action. ErrorCode = {response.StatusCode}", response.Error); if (!response.IsSuccessStatusCode)
+                throw new InfrastructureException($"Errot from Nasa api Search action. ErrorCode = {response.StatusCode}", response.Error);
             if (response.Content == null)
                     throw new InfrastructureException($"No content from Nasa api");
             return response.Content;

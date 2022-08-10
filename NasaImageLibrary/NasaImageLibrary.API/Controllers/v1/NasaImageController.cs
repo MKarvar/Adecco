@@ -28,11 +28,27 @@ namespace NasaImageLibrary.API.Controllers.v1
         public virtual async Task<ApiResult<PagedResultDto<Item>>> GetAll([FromQuery]SearchFilesQuery fileQuery, [FromQuery] PaginationQuery pagingQuery, CancellationToken cancellationToken)
         {
             var route = Request.Path.Value;
-            //SearchFilesWithPaginationQuery query = new SearchFilesWithPaginationQuery() { GetUsersQuery = fileQuery, PageNumber = pagingQuery.PageNumber, PageSize = pagingQuery.PageSize };
-            //var usersDtos = await _mediator.Send(query, cancellationToken);
             var result = await _nasaService.Search(fileQuery, pagingQuery, cancellationToken);
             var pagedReponse = PaginationHelper.CreatePagedReponse(result.Items, pagingQuery, result.ItemsCount, _uriService, route);
             return Ok(pagedReponse);
+        }
+        [HttpGet("[action]")]
+        public virtual async Task<ApiResult<AssetDto>> GetAssets([FromQuery] string id, CancellationToken cancellationToken)
+        {
+            var result = await _nasaService.GetAsset(id, cancellationToken);
+            return Ok(result);
+        }
+        [HttpGet("[action]")]
+        public virtual async Task<ApiResult<MetaDataDto>> GetMetaData([FromQuery] string id, CancellationToken cancellationToken)
+        {
+            var result = await _nasaService.GetMetaData(id, cancellationToken);
+            return Ok(result);
+        }
+        [HttpGet("[action]")]
+        public virtual async Task<ApiResult<CaptionsDto>> GetCaption([FromQuery] string id, CancellationToken cancellationToken)
+        {
+            var result = await _nasaService.GetCaptions(id, cancellationToken);
+            return Ok(result);
         }
     }
 }

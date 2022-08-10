@@ -1,6 +1,8 @@
-﻿using NasaImageLibrary.Applicationservice.Dtos;
+﻿using Microsoft.AspNetCore.Http;
+using NasaImageLibrary.Applicationservice.Dtos;
 using NasaImageLibrary.Applicationservice.Queries;
 using Refit;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,13 +10,15 @@ namespace NasaImageLibrary.Infrastructure
 {
     public interface INasaImageAndVideoLibraryClient
     {
+        [QueryUriFormat(UriFormat.Unescaped)]
         [Get("/search?q={q}")]
-        Task<ApiResponse<FileDto>> Search(string q, CancellationToken cancellationToken);
+        //[Get("/search?{q}")]
+        Task<ApiResponse<FileDto>> Search([Query] string q, CancellationToken cancellationToken);
         [Get("/asset/{nasa_id}")]
-        Task<ApiResponse<AssetDto>> GetAsset(int nasa_id, CancellationToken cancellationToken);
+        Task<ApiResponse<AssetDto>> GetAsset(string nasa_id, CancellationToken cancellationToken);
         [Get("/metadata/{nasa_id}")]
-        Task<ApiResponse<MetaDataDto>> GetMetaData(int nasa_id, CancellationToken cancellationToken);
+        Task<ApiResponse<MetaDataDto>> GetMetaData(string nasa_id, CancellationToken cancellationToken);
         [Get("/captions/{nasa_id}")]
-        Task<ApiResponse<CaptionsDto>> GetCaptions(int nasa_id, CancellationToken cancellationToken);
+        Task<ApiResponse<CaptionsDto>> GetCaptions(string nasa_id, CancellationToken cancellationToken);
     }
 }
