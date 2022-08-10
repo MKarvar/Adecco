@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NasaImageLibrary.Applicationservice.Contracts
 {
-    public interface INasaImageAndVideoLibraryService
+    public interface INasaExternalService
     {
         Task<FileDto> Search(SearchFilesQuery query, CancellationToken cancellationToken);
-        Task GetAsset(int nasaId, CancellationToken cancellationToken);
-        Task GetMetaData(int nasaId, CancellationToken cancellationToken);
-        Task GetCaptions(int nasaId, CancellationToken cancellationToken);
+        Task<AssetDto> GetAsset(int nasaId, CancellationToken cancellationToken);
+        Task<MetaDataDto> GetMetaData(int nasaId, CancellationToken cancellationToken);
+        Task<CaptionsDto> GetCaptions(int nasaId, CancellationToken cancellationToken);
     }
 }

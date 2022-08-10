@@ -9,8 +9,8 @@ namespace NasaImageLibrary.Applicationservice
 {
     public class NasaFilesApplicationService
     {
-        private readonly INasaImageAndVideoLibraryService _nasaService;
-        public NasaFilesApplicationService(INasaImageAndVideoLibraryService nasaService)
+        private readonly INasaFilesApplicationService _nasaService;
+        public NasaFilesApplicationService(INasaFilesApplicationService nasaService)
         {
             _nasaService = nasaService ?? throw new ArgumentNullException(nameof(nasaService));
         }
@@ -18,20 +18,17 @@ namespace NasaImageLibrary.Applicationservice
         {
             return await _nasaService.Search(query, cancellationToken);
         }
-        Task GetAsset(int nasaId, CancellationToken cancellationToken)
+        public async Task<AssetDto> GetAsset(int nasaId, CancellationToken cancellationToken)
         {
-            return null;
-
+            return await _nasaService.GetAsset(nasaId, cancellationToken);
         }
-        Task GetMetaData(CancellationToken cancellationToken)
+        public async Task<MetaDataDto> GetMetaData(int nasaId, CancellationToken cancellationToken)
         {
-            return null;
-
+            return await _nasaService.GetMetaData(nasaId, cancellationToken);
         }
-        Task GetCaptions(CancellationToken cancellationToken)
+        public async Task<CaptionsDto> GetCaptions(int nasaId, CancellationToken cancellationToken)
         {
-            return null;
-
+            return await _nasaService.GetCaptions(nasaId, cancellationToken);
         }
     }
 }
